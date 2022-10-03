@@ -1,0 +1,72 @@
+A51 MACRO ASSEMBLER  PROJ                                                                 10/03/2022 14:09:43 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\proj.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE proj.a51 SET(SMALL) DEBUG PRINT(.\Listings\proj.lst) OBJECT(.\Objects\p
+                      roj.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1                     ORG 00H
+0000 802E              2                     SJMP MAIN
+0030                   3                     ORG 30H
+                       4     
+0030 90004E            5     MAIN:   MOV DPTR, #TAB
+0033 7910              6                     MOV R1,#16
+0035 7A00              7                     MOV R2,#0
+0037 113B              8                     ACALL DISP
+0039 0130              9                     AJMP MAIN
+                      10                     
+003B EA               11     DISP:   MOV A,R2
+003C 93               12                     MOVC A,@A+DPTR
+003D F580             13                     MOV P0,A
+003F 1145             14                     ACALL DELAY
+0041 0A               15                     INC R2
+0042 D9F7             16                     DJNZ R1,DISP
+0044 22               17                     RET
+                      18                     
+0045 7EFF             19     DELAY:  MOV R6,#255
+0047 7FFF             20     LOOP:   MOV R7,#255
+0049 DFFE             21                     DJNZ R7,$
+004B DEFA             22                     DJNZ R6,LOOP
+004D 22               23                     RET
+                      24     
+004E                  25     TAB:
+004E 00               26     DB              00000000B
+004F 80               27     DB              10000000B
+0050 C0               28     DB              11000000B
+0051 E0               29     DB              11100000B
+0052 F0               30     DB              11110000B
+0053 F8               31     DB              11111000B
+0054 FC               32     DB              11111100B
+0055 FE               33     DB              11111110B
+0056 FF               34     DB              11111111B
+0057 7F               35     DB              01111111B
+0058 3F               36     DB              00111111B
+0059 1F               37     DB              00011111B
+005A 0F               38     DB              00001111B
+005B 07               39     DB              00000111B
+005C 03               40     DB              00000011B
+005D 01               41     DB              00000001B
+                      42     END
+A51 MACRO ASSEMBLER  PROJ                                                                 10/03/2022 14:09:43 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0045H   A   
+DISP . . . . . . .  C ADDR   003BH   A   
+LOOP . . . . . . .  C ADDR   0047H   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+TAB. . . . . . . .  C ADDR   004EH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
