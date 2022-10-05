@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJ                                                                 10/05/2022 16:30:08 PAGE     1
+A51 MACRO ASSEMBLER  PROJ                                                                 10/05/2022 16:30:57 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -21,7 +21,7 @@ LOC  OBJ            LINE     SOURCE
                       11                     
 003B                  12     DISP:           
 003B EA               13                     MOV A,R2
-003C 93               14                     MOVC A,@A+DPTR  ;MOVC TARGET REG MUST BE A
+003C 93               14                     MOVC A,@A+DPTR          ;MOVC TARGET REG MUST BE A
 003D F580             15                     MOV P0,A
 003F 1145             16                     ACALL DELAY
 0041 0A               17                     INC R2
@@ -54,7 +54,7 @@ LOC  OBJ            LINE     SOURCE
 005C 03               44     DB              00000011B
 005D 01               45     DB              00000001B
                       46     END
-A51 MACRO ASSEMBLER  PROJ                                                                 10/05/2022 16:30:08 PAGE     2
+A51 MACRO ASSEMBLER  PROJ                                                                 10/05/2022 16:30:57 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
