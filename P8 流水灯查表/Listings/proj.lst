@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJ                                                                 10/03/2022 14:09:43 PAGE     1
+A51 MACRO ASSEMBLER  PROJ                                                                 10/05/2022 16:30:08 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -8,49 +8,53 @@ ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE proj.a51 SET(SMALL) DEBUG PRINT
 
 LOC  OBJ            LINE     SOURCE
 
-0000                   1                     ORG 00H
-0000 802E              2                     SJMP MAIN
-0030                   3                     ORG 30H
+0000                   1                     ORG 00H                 ;RESET ORG
+0000 802E              2                     SJMP MAIN               ;RESERVED FOR INTERRUPTION VECTORS
+0030                   3                     ORG 30H                 ;MAIN ORG
                        4     
-0030 90004E            5     MAIN:   MOV DPTR, #TAB
-0033 7910              6                     MOV R1,#16
-0035 7A00              7                     MOV R2,#0
-0037 113B              8                     ACALL DISP
-0039 0130              9                     AJMP MAIN
-                      10                     
-003B EA               11     DISP:   MOV A,R2
-003C 93               12                     MOVC A,@A+DPTR
-003D F580             13                     MOV P0,A
-003F 1145             14                     ACALL DELAY
-0041 0A               15                     INC R2
-0042 D9F7             16                     DJNZ R1,DISP
-0044 22               17                     RET
-                      18                     
-0045 7EFF             19     DELAY:  MOV R6,#255
-0047 7FFF             20     LOOP:   MOV R7,#255
-0049 DFFE             21                     DJNZ R7,$
-004B DEFA             22                     DJNZ R6,LOOP
-004D 22               23                     RET
-                      24     
-004E                  25     TAB:
-004E 00               26     DB              00000000B
-004F 80               27     DB              10000000B
-0050 C0               28     DB              11000000B
-0051 E0               29     DB              11100000B
-0052 F0               30     DB              11110000B
-0053 F8               31     DB              11111000B
-0054 FC               32     DB              11111100B
-0055 FE               33     DB              11111110B
-0056 FF               34     DB              11111111B
-0057 7F               35     DB              01111111B
-0058 3F               36     DB              00111111B
-0059 1F               37     DB              00011111B
-005A 0F               38     DB              00001111B
-005B 07               39     DB              00000111B
-005C 03               40     DB              00000011B
-005D 01               41     DB              00000001B
-                      42     END
-A51 MACRO ASSEMBLER  PROJ                                                                 10/03/2022 14:09:43 PAGE     2
+0030                   5     MAIN:           
+0030 90004E            6                     MOV DPTR, #TAB
+0033 7910              7                     MOV R1,#16              ;R1 ARR.LENGTH
+0035 7A00              8                     MOV R2,#0               ;R2 ARR INDEX WHICH WILL BE ASIGNED TO A LATER
+0037 113B              9                     ACALL DISP
+0039 0130             10                     AJMP MAIN
+                      11                     
+003B                  12     DISP:           
+003B EA               13                     MOV A,R2
+003C 93               14                     MOVC A,@A+DPTR  ;MOVC TARGET REG MUST BE A
+003D F580             15                     MOV P0,A
+003F 1145             16                     ACALL DELAY
+0041 0A               17                     INC R2
+0042 D9F7             18                     DJNZ R1,DISP
+0044 22               19                     RET
+                      20                     
+0045                  21     DELAY:          
+0045 7EFF             22                     MOV R6,#255
+0047                  23     LOOP:           
+0047 7FFF             24                     MOV R7,#255
+0049 DFFE             25                     DJNZ R7,$
+004B DEFA             26                     DJNZ R6,LOOP
+004D 22               27                     RET
+                      28     
+004E                  29     TAB:                                    ;P0 LED_CC
+004E 00               30     DB              00000000B
+004F 80               31     DB              10000000B
+0050 C0               32     DB              11000000B
+0051 E0               33     DB              11100000B
+0052 F0               34     DB              11110000B
+0053 F8               35     DB              11111000B
+0054 FC               36     DB              11111100B
+0055 FE               37     DB              11111110B
+0056 FF               38     DB              11111111B
+0057 7F               39     DB              01111111B
+0058 3F               40     DB              00111111B
+0059 1F               41     DB              00011111B
+005A 0F               42     DB              00001111B
+005B 07               43     DB              00000111B
+005C 03               44     DB              00000011B
+005D 01               45     DB              00000001B
+                      46     END
+A51 MACRO ASSEMBLER  PROJ                                                                 10/05/2022 16:30:08 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
