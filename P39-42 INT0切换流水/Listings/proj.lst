@@ -1,0 +1,84 @@
+A51 MACRO ASSEMBLER  PROJ                                                                 10/07/2022 16:15:21 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\proj.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE proj.a51 SET(SMALL) DEBUG PRINT(.\Listings\proj.lst) OBJECT(.\Objects\p
+                      roj.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1                     ORG 00H
+0000 8003              2                     JMP MAIN
+0003                   3                     ORG 03H
+0003 800F              4                     JMP INT_0                       ;IF INT0, error A8: ATTEMPT TO DEFINE AN AL
+                             READY DEFINED LABEL
+                       5     
+0005                   6     MAIN:   
+0005 D2AF              7                     SETB EA
+0007 D2A8              8                     SETB EX0
+0009 D288              9                     SETB IT0
+                      10                     
+000B E4               11                     CLR A
+000C                  12     DISP:   
+000C F580             13                     MOV P0,A
+000E F4               14                     CPL A
+000F 120029           15                     LCALL DELAY
+0012 80F8             16                     JMP DISP
+                      17                     
+                      18                     
+                      19                     
+0014                  20     INT_0:  
+0014 C0E0             21                     PUSH ACC                        ;SAVE
+0016 C0D0             22                     PUSH PSW
+                      23                     ;SETB RS0                       ;SWITCH REGSET
+                      24                     
+0018 7401             25                     MOV A,#00000001B
+001A 7F10             26                     MOV R7,#16
+001C                  27     FORR7:  
+001C F580             28                     MOV P0,A
+001E 120029           29                     LCALL DELAY
+0021 23               30                     RL A
+0022 DFF8             31                     DJNZ R7,FORR7
+                      32                     
+                      33                     ;CLR RS0
+0024 D0D0             34                     POP PSW                         ;RECOVER
+0026 D0E0             35                     POP ACC
+0028 32               36                     RETI
+                      37                     
+0029                  38     DELAY:
+0029 7D00             39                     MOV R5,#0
+002B                  40     FORR5:  
+002B 7E00             41                     MOV R6,#0
+002D                  42     FORR6:
+002D DEFE             43                     DJNZ R6,FORR6
+002F DDFA             44                     DJNZ R5,FORR5
+0031 22               45                     RET
+                      46     END
+A51 MACRO ASSEMBLER  PROJ                                                                 10/07/2022 16:15:21 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+DELAY. . . . . . .  C ADDR   0029H   A   
+DISP . . . . . . .  C ADDR   000CH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+FORR5. . . . . . .  C ADDR   002BH   A   
+FORR6. . . . . . .  C ADDR   002DH   A   
+FORR7. . . . . . .  C ADDR   001CH   A   
+INT_0. . . . . . .  C ADDR   0014H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+MAIN . . . . . . .  C ADDR   0005H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
