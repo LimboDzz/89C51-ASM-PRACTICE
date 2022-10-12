@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJ                                                                 10/07/2022 16:15:21 PAGE     1
+A51 MACRO ASSEMBLER  PROJ                                                                 10/12/2022 18:47:24 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -9,53 +9,58 @@ ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE proj.a51 SET(SMALL) DEBUG PRINT
 LOC  OBJ            LINE     SOURCE
 
 0000                   1                     ORG 00H
-0000 8003              2                     JMP MAIN
+0000 802E              2                     JMP MAIN
 0003                   3                     ORG 03H
-0003 800F              4                     JMP INT_0                       ;IF INT0, error A8: ATTEMPT TO DEFINE AN AL
-                             READY DEFINED LABEL
-                       5     
-0005                   6     MAIN:   
-0005 D2AF              7                     SETB EA
-0007 D2A8              8                     SETB EX0
-0009 D288              9                     SETB IT0
-                      10                     
-000B E4               11                     CLR A
-000C                  12     DISP:   
-000C F580             13                     MOV P0,A
-000E F4               14                     CPL A
-000F 120029           15                     LCALL DELAY
-0012 80F8             16                     JMP DISP
-                      17                     
-                      18                     
-                      19                     
-0014                  20     INT_0:  
-0014 C0E0             21                     PUSH ACC                        ;SAVE
-0016 C0D0             22                     PUSH PSW
-                      23                     ;SETB RS0                       ;SWITCH REGSET
-                      24                     
-0018 7401             25                     MOV A,#00000001B
-001A 7F10             26                     MOV R7,#16
-001C                  27     FORR7:  
-001C F580             28                     MOV P0,A
-001E 120029           29                     LCALL DELAY
-0021 23               30                     RL A
-0022 DFF8             31                     DJNZ R7,FORR7
-                      32                     
-                      33                     ;CLR RS0
-0024 D0D0             34                     POP PSW                         ;RECOVER
-0026 D0E0             35                     POP ACC
-0028 32               36                     RETI
-                      37                     
-0029                  38     DELAY:
-0029 7D00             39                     MOV R5,#0
-002B                  40     FORR5:  
-002B 7E00             41                     MOV R6,#0
-002D                  42     FORR6:
-002D DEFE             43                     DJNZ R6,FORR6
-002F DDFA             44                     DJNZ R5,FORR5
-0031 22               45                     RET
-                      46     END
-A51 MACRO ASSEMBLER  PROJ                                                                 10/07/2022 16:15:21 PAGE     2
+0003 803A              4                     JMP INT_0
+0030                   5                     ORG 30H
+0030                   6     MAIN:
+0030 D2AF              7                     SETB EA
+0032 D2A8              8                     SETB EX0
+0034 D288              9                     SETB IT0
+0036 7400             10                     MOV A,#00000000B
+                      11                     
+0038                  12     FLICKER:        
+0038 F580             13                     MOV P0,A
+003A F4               14                     CPL A                   ;CONVERSE POSITION LOGICAL
+003B 1160             15                     ACALL DELAY
+003D 80F9             16                     SJMP FLICKER
+                      17     
+003F                  18     INT_0:
+003F C0D0             19                     PUSH PSW                ;SAVE
+0041 C0E0             20                     PUSH ACC
+                      21                     
+0043 7802             22                     MOV R0,#2
+0045 7401             23                     MOV A,#00000001B
+0047                  24     ROUND_FACE_SHIFT:       
+0047 7907             25                     MOV R1,#7
+0049 7A07             26                     MOV R2,#7
+                      27                     
+004B                  28     FORR1:                                  ;CLOCKWISE
+004B F580             29                     MOV P0,A
+004D 23               30                     RL A
+004E 1160             31                     ACALL DELAY
+0050 D9F9             32                     DJNZ R1,FORR1
+                      33                     
+0052                  34     FORR2:                                  ;COUNTERCLOCKWISE
+0052 F580             35                     MOV P0,A
+0054 03               36                     RR A
+0055 1160             37                     ACALL DELAY
+0057 DAF9             38                     DJNZ R2,FORR2
+                      39                     
+0059 D8EC             40                     DJNZ R0,ROUND_FACE_SHIFT
+                      41                     
+005B D0E0             42                     POP ACC                 ;RECOVER
+005D D0D0             43                     POP PSW
+005F 32               44                     RETI
+                      45                     
+0060                  46     DELAY:
+0060 7E00             47                     MOV R6,#0
+0062 7F00             48     FORR6:  MOV R7,#0
+0064 DFFE             49     FORR7:  DJNZ R7,FORR7
+0066 DEFA             50                     DJNZ R6,FORR6
+0068 22               51                     RET
+                      52     END
+A51 MACRO ASSEMBLER  PROJ                                                                 10/12/2022 18:47:24 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -64,18 +69,20 @@ SYMBOL TABLE LISTING
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
 ACC. . . . . . . .  D ADDR   00E0H   A   
-DELAY. . . . . . .  C ADDR   0029H   A   
-DISP . . . . . . .  C ADDR   000CH   A   
+DELAY. . . . . . .  C ADDR   0060H   A   
 EA . . . . . . . .  B ADDR   00A8H.7 A   
 EX0. . . . . . . .  B ADDR   00A8H.0 A   
-FORR5. . . . . . .  C ADDR   002BH   A   
-FORR6. . . . . . .  C ADDR   002DH   A   
-FORR7. . . . . . .  C ADDR   001CH   A   
-INT_0. . . . . . .  C ADDR   0014H   A   
+FLICKER. . . . . .  C ADDR   0038H   A   
+FORR1. . . . . . .  C ADDR   004BH   A   
+FORR2. . . . . . .  C ADDR   0052H   A   
+FORR6. . . . . . .  C ADDR   0062H   A   
+FORR7. . . . . . .  C ADDR   0064H   A   
+INT_0. . . . . . .  C ADDR   003FH   A   
 IT0. . . . . . . .  B ADDR   0088H.0 A   
-MAIN . . . . . . .  C ADDR   0005H   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
 P0 . . . . . . . .  D ADDR   0080H   A   
 PSW. . . . . . . .  D ADDR   00D0H   A   
+ROUND_FACE_SHIFT .  C ADDR   0047H   A   
 
 
 REGISTER BANK(S) USED: 0 

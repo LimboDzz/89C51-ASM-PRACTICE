@@ -1,0 +1,82 @@
+A51 MACRO ASSEMBLER  PROJ                                                                 10/12/2022 19:41:26 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\proj.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE proj.a51 SET(SMALL) DEBUG PRINT(.\Listings\proj.lst) OBJECT(.\Objects\p
+                      roj.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1                     ORG 00H
+0000 802E              2                     SJMP MAIN
+0013                   3                     ORG 13H
+0013 8036              4                     SJMP INT_1
+0030                   5                     ORG 30H
+0030                   6     MAIN:   
+0030 1139              7                     ACALL ENINT                     ;ENABLE INTERRUPTION
+0032 1143              8                     ACALL INITAB            ;INIT TAB ARRAY
+0034                   9     DISP:
+0034 75803F           10                     MOV P0,#3fH
+0037 80FE             11                     SJMP $
+                      12                     
+0039                  13     ENINT:
+0039 D2AF             14                     SETB EA
+003B D2AA             15                     SETB EX1
+003D D28A             16                     SETB IT1
+003F 758130           17                     MOV SP,#30H                     ;SET STACK POINTER
+0042 22               18                     RET
+                      19                     
+0043                  20     INITAB:
+0043 90005B           21                     MOV DPTR,#TAB           ;ARR
+0046 7810             22                     MOV R0,#16                      ;ARR LENGTH
+0048 7900             23                     MOV R1,#0                       ;ARR INDEX
+004A 22               24                     RET
+                      25                     
+004B                  26     INT_1:
+004B C0D0             27                     PUSH PSW
+004D C0E0             28                     PUSH ACC
+                      29                     
+004F 09               30                     INC R1
+0050 E9               31                     MOV A,R1
+0051 540F             32                     ANL A,#0FH
+0053 93               33                     MOVC A,@A+DPTR
+0054 F580             34                     MOV P0,A
+                      35                     
+0056 D0E0             36                     POP ACC
+0058 D0D0             37                     POP PSW
+005A 32               38                     RETI
+                      39     
+005B                  40     TAB:
+005B 3F065B4F         41     DB 3fH,06H,5bH,4fH,66H,6dH,7dH,07H,7fH,6fH,77H,7cH,39H,5eH,79H,71H
+005F 666D7D07                
+0063 7F6F777C                
+0067 395E7971                
+                      42     END
+A51 MACRO ASSEMBLER  PROJ                                                                 10/12/2022 19:41:26 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+DISP . . . . . . .  C ADDR   0034H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ENINT. . . . . . .  C ADDR   0039H   A   
+EX1. . . . . . . .  B ADDR   00A8H.2 A   
+INITAB . . . . . .  C ADDR   0043H   A   
+INT_1. . . . . . .  C ADDR   004BH   A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+TAB. . . . . . . .  C ADDR   005BH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
