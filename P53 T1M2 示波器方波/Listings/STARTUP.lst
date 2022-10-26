@@ -1,0 +1,48 @@
+A51 MACRO ASSEMBLER  STARTUP                                                              10/26/2022 15:29:01 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\STARTUP.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE STARTUP.A51 SET(SMALL) DEBUG PRINT(.\Listings\STARTUP.lst) OBJECT(.\Obj
+                      ects\STARTUP.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1                     ORG 00H
+0000 801C              2                     SJMP MAIN
+001B                   3                     ORG 1BH
+001B B290              4                     CPL P1.0        ;8BYTE ENOUGH FOR INT PROCESSING
+001D 32                5                     RETI
+001E                   6     MAIN:
+001E 758920            7                     MOV TMOD,#00100000B     ;SET T1 M2 8-BIT-AUTO-REFILL
+0021 758D00            8                     MOV TH1,#0                      ;REFILL VALUE
+0024 758B00            9                     MOV TL1,#0                      ;INIT VALUE
+                      10                     
+0027 D2AF             11                     SETB EA         ;ENABLE ALL INT
+0029 D2AB             12                     SETB ET1        ;ENABLE TIMER1
+002B D28E             13                     SETB TR1        ;START TIMER1
+                      14                     
+002D 80FE             15                     SJMP $
+                      16     END
+A51 MACRO ASSEMBLER  STARTUP                                                              10/26/2022 15:29:01 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET1. . . . . . . .  B ADDR   00A8H.3 A   
+MAIN . . . . . . .  C ADDR   001EH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
