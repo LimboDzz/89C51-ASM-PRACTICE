@@ -1,0 +1,68 @@
+A51 MACRO ASSEMBLER  STARTUP                                                              10/26/2022 18:34:48 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\STARTUP.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE STARTUP.A51 SET(SMALL) DEBUG PRINT(.\Listings\STARTUP.lst) OBJECT(.\Obj
+                      ects\STARTUP.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1                     ORG 00H
+0000 800B              2                     SJMP MAIN
+000B                   3                     ORG 0BH
+000B 8017              4                     SJMP TIMER0
+000D                   5     MAIN:
+000D 7401              6                     MOV A,#00000001B        ;P0 LED
+000F F580              7                     MOV P0,A
+0011 7832              8                     MOV R0,#50                      ;20ms*50
+                       9                     
+0013 758901           10                     MOV TMOD,#00000001B     ;T0M1
+0016 758CB1           11                     MOV TH0,#0B1H           ;INIT T0 20MS
+0019 758AE0           12                     MOV TL0,#0E0H
+                      13                     
+001C D2AF             14                     SETB EA
+001E D2A9             15                     SETB ET0
+0020 D28C             16                     SETB TR0
+                      17                     
+0022 80FE             18                     SJMP $
+                      19     
+0024                  20     TIMER0:
+0024 758CB1           21                     MOV TH0,#0B1H           ;INIT T0 20MS
+0027 758AE0           22                     MOV TL0,#0E0H
+002A D802             23                     DJNZ R0,J1
+002C 112F             24                     ACALL ROLL
+002E                  25     J1:
+002E 32               26                     RETI
+                      27     
+002F                  28     ROLL:
+002F 7832             29                     MOV R0,#50                      ;20ms*50
+0031 23               30                     RL A
+0032 F580             31                     MOV P0,A
+0034 22               32                     RET
+                      33     END
+A51 MACRO ASSEMBLER  STARTUP                                                              10/26/2022 18:34:48 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+J1 . . . . . . . .  C ADDR   002EH   A   
+MAIN . . . . . . .  C ADDR   000DH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+ROLL . . . . . . .  C ADDR   002FH   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER0 . . . . . .  C ADDR   0024H   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
