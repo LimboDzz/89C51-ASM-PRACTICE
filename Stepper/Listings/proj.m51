@@ -1,0 +1,159 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    10/27/2022  18:10:49  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\proj.obj TO .\Objects\proj PRINT (.\Listings\proj.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\proj.obj (PROJ)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?SCDIV)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?SLDIV)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULDIV)
+
+
+LINK MAP OF MODULE:  .\Objects\proj (PROJ)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         _DATA_GROUP_
+            DATA    000CH     0003H     UNIT         ?DT?PROJ
+            IDATA   000FH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0008H     UNIT         ?PR?MAIN?PROJ
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     00F0H     UNIT         ?C?LIB_CODE
+            CODE    00FEH     008CH     UNIT         ?C_C51STARTUP
+            CODE    018AH     0063H     UNIT         ?PR?_SETTIMER0?PROJ
+            CODE    01EDH     0062H     UNIT         ?PR?TIMER0?PROJ
+            CODE    024FH     0044H     UNIT         ?C?LDIV
+            CODE    0293H     0011H     UNIT         ?PR?INIT?PROJ
+            CODE    02A4H     0008H     UNIT         ?C_INITSEG
+            CODE    02ACH     0008H     UNIT         ?CO?PROJ
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\proj (PROJ)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?PR?TIMER0?PROJ                -----    -----
+  +--> ?PR?_SETTIMER0?PROJ
+  +--> ?CO?PROJ
+
+?PR?_SETTIMER0?PROJ            000AH    0002H
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP                  -----    -----
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  10/27/2022  18:10:49  PAGE 2
+
+
+  +--> ?PR?MAIN?PROJ
+  +--> ?C_INITSEG
+
+?PR?MAIN?PROJ                  -----    -----
+  +--> ?PR?INIT?PROJ
+
+?PR?INIT?PROJ                  -----    -----
+  +--> ?PR?_SETTIMER0?PROJ
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\proj (PROJ)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        PROJ
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  C:018AH         PUBLIC        _setTimer0
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:0003H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:0293H         PUBLIC        init
+  D:000CH         PUBLIC        idx
+  B:00A8H.1       PUBLIC        ET0
+  C:02ACH         PUBLIC        turn
+  D:008CH         PUBLIC        TH0
+  D:000DH         PUBLIC        rpm
+  D:008AH         PUBLIC        TL0
+  C:01EDH         PUBLIC        timer0
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _SETTIMER0
+  D:0006H         SYMBOL        rpm
+  -------         DO            
+  D:000AH         SYMBOL        t0
+  -------         ENDDO         
+  C:018AH         LINE#         14
+  C:018AH         LINE#         16
+  C:01A8H         LINE#         17
+  C:01C7H         LINE#         18
+  C:01ECH         LINE#         19
+  -------         ENDPROC       _SETTIMER0
+  -------         PROC          INIT
+  C:0293H         LINE#         21
+  C:0293H         LINE#         22
+  C:0296H         LINE#         23
+  C:029DH         LINE#         24
+  C:02A3H         LINE#         25
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  10/27/2022  18:10:49  PAGE 3
+
+
+  -------         ENDPROC       INIT
+  -------         PROC          TIMER0
+  C:01EDH         LINE#         27
+  C:020AH         LINE#         28
+  C:0211H         LINE#         29
+  C:0226H         LINE#         30
+  C:0234H         LINE#         31
+  -------         ENDPROC       TIMER0
+  -------         PROC          MAIN
+  C:0003H         LINE#         33
+  C:0003H         LINE#         34
+  C:0006H         LINE#         35
+  C:0009H         LINE#         36
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        PROJ
+
+  -------         MODULE        ?C?SCDIV
+  C:000EH         PUBLIC        ?C?SCDIV
+  -------         ENDMOD        ?C?SCDIV
+
+  -------         MODULE        ?C?SLDIV
+  C:024FH         PUBLIC        ?C?SLDIV
+  -------         ENDMOD        ?C?SLDIV
+
+  -------         MODULE        ?C?ULDIV
+  C:006CH         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_SETTIMER0?PROJ
+    CALLER1: ?PR?TIMER0?PROJ
+    CALLER2: ?C_C51STARTUP
+
+Program Size: data=16.0 xdata=0 code=692
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
